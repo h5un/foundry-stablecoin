@@ -1,66 +1,65 @@
-## Foundry
+# Decentralized Stablecoin (DSC)
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+A decentralized stablecoin system built on Ethereum that maintains a 1:1 peg with USD through over-collateralization with crypto assets.
 
-Foundry consists of:
+## Overview
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+DSC (Decentralized Stablecoin) is an ERC20 token that:
+- Maintains a 1:1 peg to USD
+- Is backed by exogenous crypto collateral (wETH and wBTC)
+- Is algorithmically stable
+- Is decentralized
 
-## Documentation
+## Key Features
 
-https://book.getfoundry.sh/
+### Stable Price Peg
+- Uses Chainlink price feeds to maintain USD peg
+- Price feeds have staleness checks to prevent using outdated data
+- System freezes if price feeds become stale
 
-## Usage
+### Over-collateralization
+- Users must deposit more collateral value than DSC minted
+- Minimum 150% collateralization ratio (health factor >= 1)
+- Supports wETH and wBTC as collateral
+- Users can be liquidated if health factor drops below 1
 
-### Build
+### Key Functions
+- Deposit collateral
+- Mint DSC
+- Burn DSC
+- Redeem collateral
+- Liquidate under-collateralized positions
 
-```shell
-$ forge build
-```
+### Liquidations
+- Anyone can liquidate positions below health factor of 1
+- Liquidators receive a 10% bonus on collateral seized
+- Must improve the position's health factor
 
-### Test
+## Architecture
 
-```shell
-$ forge test
-```
+The system consists of two main contracts:
+- DSCEngine.sol: Core logic for minting, burning, liquidations
+- DecStableCoin.sol: ERC20 token implementation
 
-### Format
+## Testing
 
-```shell
-$ forge fmt
-```
+Extensive testing suite including:
+- Unit tests
+- Integration tests  
+- Fuzz tests
+- Invariant tests
 
-### Gas Snapshots
+Key invariants maintained:
+- Protocol collateral value >= Total DSC supply
+- Getter functions never revert
 
-```shell
-$ forge snapshot
-```
+## Security Features
 
-### Anvil
+- Reentrancy protection
+- Checks-Effects-Interactions pattern
+- Input validation and bounds checking
+- Price feed staleness checks
+- Pause mechanism on stale prices
 
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+## Author
+Benson Wu
