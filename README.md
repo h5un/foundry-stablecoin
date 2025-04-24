@@ -44,14 +44,19 @@ The system consists of two main contracts:
 ## Testing
 
 Extensive testing suite including:
-- Unit tests
-- Integration tests  
+- Unit tests (16 tests passed)
 - Fuzz tests
-- Invariant tests
+- Invariant tests (2 tests passed)
 
-Key invariants maintained:
+Key invariants maintained and tested:
 - Protocol collateral value >= Total DSC supply
 - Getter functions never revert
+
+Test coverage:
+- Overall line coverage: 79.66%
+- Overall statement coverage: 81.51%
+- Overall branch coverage: 40.00%
+- Overall function coverage: 82.22%
 
 ## Security Features
 
